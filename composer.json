@@ -1,0 +1,21 @@
+{
+    "name": "zlt/laravel-google-doc",
+    "description": "Google Doc Service For Laravel",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Zlt\\LaravelGoogleDoc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Zaw Lin Tun",
+            "email": "zawlintun@utycc.edu.mm"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "google/apiclient": "^2.12.1",
+        "php": "^7.4|^8.0"
+    }
+}
