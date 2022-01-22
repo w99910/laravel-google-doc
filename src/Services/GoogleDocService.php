@@ -25,8 +25,30 @@ class GoogleDocService
         $this->service = new Google_Service_Docs($client);
     }
 
-    public function getDoc($documentId): \Google\Service\Docs\Document
+    public function getRaw($documentId): \Google\Service\Docs\Document
     {
         return $this->service->documents->get($documentId);
+    }
+
+    public function get($documentId)
+    {
+        $doc = $this->service->documents->get($documentId);
+        $contents = $doc->getBody()->content;
+        if (count($contents) === 0) {
+            throw new \Exception('Content empty');
+        }
+        $output = '';
+        foreach ($contents as $index => $content) {
+            $paragraph = $content->getParagraph();
+            if ($paragraph) {
+                $text = '';
+                $elements = $paragraph->getElements();
+                foreach ($elements as $element) {
+                    $text .= $element->getTextRun()->content;
+                }
+                $output .= $text;
+            }
+        }
+        return $output;
     }
 }
